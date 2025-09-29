@@ -7,8 +7,6 @@ apt update
 apt install python3.12 python3.12-venv python3.12-dev -y
 
 
-mkdir HTRService
-cd HTRService/
 git init
 git remote add origin https://github.com/AlixanGalachiev/HTRService.git
 git pull origin main
