@@ -1,3 +1,4 @@
+from fastapi import UploadFile
 import torch
 import cv2
 import os
@@ -81,7 +82,8 @@ def recognize_text(image, groups):
 	}
 
 
-def handle_image(img_array: NDArray) -> dict[str, np.ndarray]:
+async def handle_image(img: UploadFile) -> dict[str, np.ndarray]:
+	img_array = np.frombuffer(await img.read(), np.uint8)
 	image = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 	image = cv2.resize(image, (1280, 900))
 
@@ -98,7 +100,7 @@ def handle_image(img_array: NDArray) -> dict[str, np.ndarray]:
 			if speller_data['word'] in recognition_result['metadata']:
 				error_boxes.append(recognition_result['metadata'][speller_data['word']])
 			
-	return {image_path: show_errors(image, error_boxes)}
+	return {img.filename: show_errors(image, error_boxes)}
 
 def check_text(text: str):
 	try:

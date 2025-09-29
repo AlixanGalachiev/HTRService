@@ -24,8 +24,7 @@ async def get_spelling_mistakes(images: list[UploadFile]):
 	urls = []
 
 	for image in images:
-		img_array = np.frombuffer(await image.read(), np.uint8)
-		processed_img = handle_image(img_array)
+		processed_img = handle_image(image)
 		ext = mime_to_ext.get(image.content_type, ".png")
 
 		_, buffer = cv2.imencode(ext, processed_img)
