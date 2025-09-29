@@ -2,15 +2,22 @@ import boto3, uuid
 from fastapi import FastAPI, UploadFile
 import cv2, io, numpy as np
 from trOCR_recognition import handle_image
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 s3 = boto3.client(
 	"s3",
-	endpoint_url="http://localhost:9000", # если MinIO локальный
-	aws_access_key_id="minio",
-	aws_secret_access_key="minio123"
+	endpoint_url=os.getenv("S3_ENDPOINT_URL"), # если MinIO локальный
+	aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+	aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY")
 )
-BUCKET = "processed-images"
+BUCKET = os.getenv("BUCKET")
+
+
+
 
 mime_to_ext = {
 	"image/png": ".png",
