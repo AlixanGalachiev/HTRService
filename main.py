@@ -25,9 +25,7 @@ async def get_spelling_mistakes(images: list[UploadFile]):
 
 	for image in images:
 		img_array = np.frombuffer(await image.read(), np.uint8)
-		img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-
-		processed_img = handle_image(img)
+		processed_img = handle_image(img_array)
 		ext = mime_to_ext.get(image.content_type, ".png")
 
 		_, buffer = cv2.imencode(ext, processed_img)

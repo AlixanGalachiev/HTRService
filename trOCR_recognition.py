@@ -3,6 +3,7 @@ import cv2
 import os
 import requests
 import numpy as np
+from numpy.typing import NDArray
 
 from yolo_detection import text_detection, yolo_result_to_boxes
 from trOCR_utils import boxes_to_groups, show_errors
@@ -80,8 +81,8 @@ def recognize_text(image, groups):
 	}
 
 
-def handle_image(image_path: str) -> dict[str, np.ndarray]:
-	image = cv2.imread(image_path)
+def handle_image(img_array: NDArray) -> dict[str, np.ndarray]:
+	image = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 	image = cv2.resize(image, (1280, 900))
 
 	yolo_result = text_detection(image, conf=0.3)[0]
