@@ -107,7 +107,7 @@ async def handle_image(img: UploadFile) -> dict[str, np.ndarray]:
 			if speller_data['word'] in recognition_result['metadata']:
 				error_boxes.append(recognition_result['metadata'][speller_data['word']])
 			
-	return tuple[img.filename, show_errors(image, error_boxes)]
+	return (img.filename, show_errors(image, error_boxes))
 
 def check_text(text: str):
 	try:
