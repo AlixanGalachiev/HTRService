@@ -4,8 +4,8 @@ import os
 import requests
 import numpy as np
 
-from .yolo_detection import text_detection, yolo_result_to_boxes
-from .trOCR_utils import boxes_to_groups, show_errors
+from yolo_detection import text_detection, yolo_result_to_boxes
+from trOCR_utils import boxes_to_groups, show_errors
 from transformers import GenerationConfig, TrOCRProcessor, VisionEncoderDecoderModel
 from huggingface_hub import login
 

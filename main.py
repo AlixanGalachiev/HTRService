@@ -1,7 +1,7 @@
 import boto3, uuid
 from fastapi import FastAPI, UploadFile
 import cv2, io, numpy as np
-from .trOCR_recognition import handle_image
+from trOCR_recognition import handle_image
 
 app = FastAPI()
 s3 = boto3.client(
