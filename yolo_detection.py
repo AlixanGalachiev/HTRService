@@ -1,6 +1,8 @@
 from ultralytics import YOLO
 from huggingface_hub import hf_hub_download, login
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 login(token=os.getenv("HF_AUTH_TOKEN"))
 

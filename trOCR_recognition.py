@@ -11,6 +11,8 @@ from trOCR_utils import boxes_to_groups, show_errors
 from transformers import GenerationConfig, TrOCRProcessor, VisionEncoderDecoderModel
 from huggingface_hub import login
 
+from dotenv import load_dotenv
+
 login(token=os.getenv("HF_AUTH_TOKEN"))
 
 
