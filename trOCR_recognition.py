@@ -85,7 +85,12 @@ def recognize_text(image, groups):
 
 
 async def handle_image(img: UploadFile) -> dict[str, np.ndarray]:
-	img_array = np.frombuffer(await img.read(), np.uint8)
+	contents = await img.read()
+	# проверяем что не пустое
+	if not contents:
+		raise ValueError("Загруженный файл пустой")
+
+	img_array = np.frombuffer(contents, np.uint8)
 	image = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 	image = cv2.resize(image, (1280, 900))
 
@@ -102,7 +107,7 @@ async def handle_image(img: UploadFile) -> dict[str, np.ndarray]:
 			if speller_data['word'] in recognition_result['metadata']:
 				error_boxes.append(recognition_result['metadata'][speller_data['word']])
 			
-	return {img.filename: show_errors(image, error_boxes)}
+	return tuple[img.filename, show_errors(image, error_boxes)]
 
 def check_text(text: str):
 	try:
