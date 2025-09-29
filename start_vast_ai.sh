@@ -6,7 +6,8 @@ add-apt-repository ppa:deadsnakes/ppa -y
 apt update
 apt install python3.12 python3.12-venv python3.12-dev -y
 
-
+mkdir HTRService
+cd HTRService
 git init
 git remote add origin https://github.com/AlixanGalachiev/HTRService.git
 git pull origin main
@@ -18,4 +19,5 @@ source .venv/bin/activate
 pip install --upgrade pip setuptools wheel
 sudo apt install -y python3.12-dev libpq-dev build-essential
 pip install -r requirements.txt
+apt install docker docker-compose
 docker-compose up --build
