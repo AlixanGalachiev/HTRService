@@ -34,9 +34,8 @@ async def get_spelling_mistakes(images: list[UploadFile]):
 		processed_img = await handle_image(image)
 		ext = mime_to_ext.get(image.content_type, ".png")
 
-		_, buffer = cv2.imencode(ext, processed_img[1])
-		key = f"{processed_img[0]}{ext}"
-	
+		_, buffer = cv2.imencode(ext, processed_img)
+		key = image.filename
 		s3.put_object(Bucket=BUCKET, Key=key, Body=buffer.tobytes(), ContentType="image/png")
 		url = s3.generate_presigned_url(
 			"get_object",
